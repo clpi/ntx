@@ -1,0 +1,76 @@
+[package]
+name = "ntx"
+version = "0.1.0"
+edition = "2021"
+default-run = "nta"
+
+[lib]
+name = "ntx"
+path = "src/lib.rs"
+
+[[bin]]
+name = "nta"
+path = "src/bin/nta.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio-postgres = { git="https://github.com/fafhrd91/postgres.git", branch="ntex-1.0" }
+chrono = { version = "*", features = ["serde"] }
+ntex-session = { version = "0.4.0", features = [] }
+ntex-bytes = {  version = "0.1.24", features = ["simd"] }
+ntex-mqtt = "1.0"
+ntex-amqp = "1.0"
+ntex-tls = { version="1.0", features = ["openssl"] }
+ntex-files = "0.4"
+ntex-identity = "0.4"
+num_cpus = "1.13"
+ntex-util = "1.0.1"
+# ntex-multipart = "0.4.0"
+mimalloc = { version = "0.1.25", default-features = false }
+snmalloc-rs = { version = "0.3.3", features = ["native-cpu"] }
+buf-min = { version = "0.7", features = ["ntex-bytes"] }
+atoi = "2.0"
+serde_json = "1.0"
+smallvec = "1.6.1"
+serde = { version = "1.0", features = ["derive"]}
+nanorand = { version = "0.7", default-features = false, features = ["std", "wyrand", "tls"] }
+yarte = { version = "0.15", features = ["bytes-buf", "json"] }
+log = "0.4"
+futures = "0.3"
+time = "0.3"
+derive_more = "0.99.17"
+r2d2 = "0.8.8"
+env_logger = "0.11.1"
+dotenv = "0.15.0"
+argonautica = "0.2.0"
+lazy_static = "1.4.0"
+
+[dependencies.uuid]
+version = "1.7.0"
+features = ["serde", "v4"]
+
+[dependencies.tokio]
+features = ["sync"]
+version = "1"
+
+[dependencies.openssl]
+version = "0.10.63"
+features = ["vendored", "v110"]
+
+[dependencies.async-std]
+version = "1.10.0"
+features = ["attributes", "unstable"]
+
+[dependencies.ntex]
+version = "1.1.0"
+features = ["tokio", "cookie", "compress", "brotli2", "url-pkg", "ntex-tokio", "openssl", "coo-kie", "url"]
+
+[profile.release]
+opt-level = 3
+codegen-units = 1
+panic = 'abort'
+lto = "thin"
+debug = false
+incremental = false
+overflow-checks = false
